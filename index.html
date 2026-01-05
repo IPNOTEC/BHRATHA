@@ -3,23 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BH₹ATHA. | Private Protocol</title>
+    <title>BH₹ATHA. | Brotherhood Protocol</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <style>
         :root {
             --b-orange: #ff6900;
             --neon-green: #39FF14;
             --electric-blue: #0070FF;
             --white: #ffffff;
+            --black: #000000;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--b-orange);
+            border-radius: 6px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff5500;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scroll-dot.active {
+            background: var(--b-orange);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--b-orange);
+        }
+
+        .scroll-dot:hover {
+            background: var(--neon-green);
+            transform: scale(1.2);
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: var(--black);
+            color: var(--white);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            cursor: crosshair;
+            scroll-behavior: smooth;
         }
 
         .brand-b { color: var(--b-orange); }
@@ -41,11 +97,320 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        ::-webkit-scrollbar { display: none; }
+        .symbol-btc::before { 
+            content: "₿$"; 
+            color: #FFD700; 
+            opacity: 0.7; 
+            font-weight: bold;
+        }
+        
+        .symbol-bhr::before { 
+            content: "₹B"; 
+            color: var(--neon-green); 
+            opacity: 1; 
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+            animation: glow 2s infinite alternate;
+        }
 
-        .symbol-btc::before { content: "₿$"; color: #FFD700; opacity: 0.5; }
-        .symbol-bhr::before { content: "₹B"; color: var(--neon-green); opacity: 0.5; }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+            }
+            to {
+                text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            }
+        }
 
+        /* Section Styles */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--b-orange), transparent);
+            margin: 40px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Calculator Styles */
+        .calculator-frame {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 255, 136, 0.1);
+        }
+        
+        .calculator-header {
+            background: linear-gradient(90deg, rgba(255, 105, 0, 0.1), rgba(0, 255, 136, 0.05));
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .bro-input-item {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .bro-input-item:hover {
+            border-color: rgba(0, 255, 136, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .owner-row {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .owner-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            border-radius: 3px;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--neon-green), #00cc6d);
+            color: #050505;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--electric-blue), #0066cc);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--b-orange), #cc5500);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        /* Form Styles */
+        .form-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.1);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .section-label {
+            color: var(--b-orange);
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+            font-weight: 600;
+        }
+        
+        .question-item {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .question-text {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .calculator-frame {
+                margin: 20px 0;
+            }
+            
+            .scroll-indicator {
+                right: 10px;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+        }
+
+        /* Final Section */
+        .final-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(10,10,20,1) 100%);
+        }
+
+        .currency-comparison {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            margin: 40px 0;
+        }
+
+        .currency-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .currency-symbol {
+            font-size: 5rem;
+            font-weight: bold;
+        }
+
+        .currency-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .request-invite-btn {
+            margin-top: 40px;
+            padding: 20px 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .request-invite-btn:hover {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .request-invite-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .request-invite-btn:hover::after {
+            left: 100%;
+        }
+        
+        /* Phone input styling */
+        .iti {
+            width: 100%;
+        }
+        
+        .iti__flag-container {
+            padding: 0 16px 0 10px;
+        }
+        
+        .iti__selected-flag {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px 0 0 8px;
+        }
+        
+        .iti__country-list {
+            background-color: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .iti__country:hover {
+            background-color: rgba(255, 105, 0, 0.2);
+        }
+        
+        /* Modal Styles */
         #accessModal {
             display: none;
             position: fixed;
@@ -54,88 +419,694 @@
             background: rgba(0,0,0,0.95);
             backdrop-filter: blur(10px);
             overflow-y: auto;
+            padding: 20px;
         }
-
-        input, textarea {
-            background: transparent;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            width: 100%;
-            padding: 10px 0;
-            color: white;
-            outline: none;
-            margin-bottom: 20px;
-        }
-
-        input:focus { border-bottom: 1px solid var(--neon-green); }
         
-        .section-label {
-            color: var(--b-orange);
-            letter-spacing: 0.3em;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            display: block;
+        .modal-content {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(20, 20, 30, 0.9);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(255, 105, 0, 0.1);
+        }
+        
+        /* Date input styling */
+        input[type="date"] {
+            color-scheme: dark;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+            padding: 4px;
+        }
+        
+        /* Fix header overlapping */
+        #intro {
+            padding-top: 140px !important;
+        }
+        
+        /* Stealth text styling */
+        .stealth-text {
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+        
+        .stealth-text.scrolled {
+            color: #cccccc !important;
+        }
+        
+        .stealth-text.scrolled-more {
+            color: #999999 !important;
+        }
+        
+        .stealth-text.scrolled-most {
+            color: #666666 !important;
         }
     </style>
 </head>
-<body class="antialiased" onmousemove="glowEffect()" onclick="glowEffect()">
+<body class="antialiased">
 
-    <div id="accessModal" class="p-6 md:p-24">
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-dot active" data-section="intro"></div>
+        <div class="scroll-dot" data-section="calculator"></div>
+        <div class="scroll-dot" data-section="final"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50 bg-black/80 backdrop-blur-sm">
+        <div class="text-xl md:text-2xl font-bold tracking-tighter uppercase">
+            <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+        </div>
+        <div id="stealthText" class="stealth-text text-[10px] tracking-[0.5em] uppercase hidden md:block">STEALTH</div>
+    </nav>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="section">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-12 md:mb-24 mt-8">
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-8 uppercase">
+                    <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+                </h1>
+                <div class="space-y-2">
+                    <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Brotherhood-Led Global Lifestyle.</p>
+                    <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Restraint is Power.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 w-full max-w-6xl border-t border-b border-white/10 mx-auto">
+                <div class="glass-card p-8 md:p-12 space-y-4 md:space-y-6">
+                    <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Foundation</h2>
+                    <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                        <p>GLOBAL architecture.</p>
+                        <p>BHARAT soul.</p>
+                        <p>INDEPENDENT by design.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 md:p-12 space-y-4 md:space-y-6 md:border-l md:border-r border-white/10">
+                    <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Operations</h2>
+                    <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                        <p>Brew / Café / Green Retail.</p>
+                        <p>Global cities.</p>
+                        <p>Select partners.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 md:p-12 space-y-4 md:space-y-6">
+                    <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Status</h2>
+                    <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                        <p>Private Access Only.</p>
+                        <p>Proof of Character required.</p>
+                        <p>Feel Bharat over Show Bharat.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center">
+                <p class="text-gray-500 text-sm md:text-base max-w-2xl mx-auto mb-10">
+                    A global brotherhood-led || Built with restraint || Code over comfort
+                </p>
+                <div class="flex justify-center space-x-12 md:space-x-20">
+                    <div class="symbol-btc text-3xl md:text-4xl"></div>
+                    <div class="symbol-bhr text-3xl md:text-4xl"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-20">
+            <div class="text-xs text-gray-600 tracking-widest uppercase mb-4">Scroll to continue</div>
+            <div class="animate-bounce">
+                <i class="fas fa-chevron-down text-b-orange text-xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="section">
+        <div class="max-w-6xl mx-auto w-full">
+            <!-- Calculator Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">
+                    Brotherhood <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-electric-blue">Ownership Calculator</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+                    A mathematically clean, power-neutral, and transparent equity distribution system for the brotherhood.
+                </p>
+            </div>
+            
+            <!-- Calculator Frame -->
+            <div class="calculator-frame">
+                <div class="calculator-header">
+                    <h2 class="text-xl md:text-2xl font-bold tracking-wider">
+                        BH<span class="text-neon-green">₹</span>ATHA<span class="text-electric-blue">.</span> <span class="text-gray-400">Ownership Model</span>
+                    </h2>
+                    <p class="text-gray-500 text-sm mt-2">Founder: 10.800% fixed • Remaining 89.200% distributed by investment</p>
+                </div>
+                
+                <div class="p-4 md:p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                        <!-- Input Section -->
+                        <div>
+                            <h3 class="text-lg font-bold mb-4 flex items-center">
+                                <i class="fas fa-users mr-3 text-electric-blue"></i>
+                                Add BROs & Investments
+                            </h3>
+                            
+                            <!-- Founder Info -->
+                            <div class="mb-6 p-4 bg-black/30 rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black text-lg font-bold mr-4">F</div>
+                                    <div>
+                                        <div class="font-bold">Bharath (Founder)</div>
+                                        <div class="text-gray-400 text-sm">Fixed <span class="text-b-orange font-bold">10.800%</span> stake • Non-negotiable</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- BRO Inputs Container -->
+                            <div id="broInputsContainer" class="mb-6 space-y-4 max-h-[400px] overflow-y-auto p-2">
+                                <!-- BRO inputs will be dynamically added here -->
+                                <div class="bro-input-item fade-in">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">BRO 1</div>
+                                        <div class="flex-grow">
+                                            <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
+                                            <input 
+                                                type="number" 
+                                                class="bro-amount bg-black border border-gray-700 rounded-lg px-4 py-3 text-lg w-full" 
+                                                placeholder="e.g., 5000000" 
+                                                value="5000000"
+                                                min="0"
+                                                step="100000"
+                                            >
+                                        </div>
+                                        <button class="remove-bro-btn ml-3 p-2 text-red-400 hover:text-red-300 opacity-70 hover:opacity-100">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bro-input-item fade-in">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">BRO 2</div>
+                                        <div class="flex-grow">
+                                            <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
+                                            <input 
+                                                type="number" 
+                                                class="bro-amount bg-black border border-gray-700 rounded-lg px-4 py-3 text-lg w-full" 
+                                                placeholder="e.g., 3000000" 
+                                                value="3000000"
+                                                min="0"
+                                                step="100000"
+                                            >
+                                        </div>
+                                        <button class="remove-bro-btn ml-3 p-2 text-red-400 hover:text-red-300 opacity-70 hover:opacity-100">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="bro-input-item fade-in">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">BRO 3</div>
+                                        <div class="flex-grow">
+                                            <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
+                                            <input 
+                                                type="number" 
+                                                class="bro-amount bg-black border border-gray-700 rounded-lg px-4 py-3 text-lg w-full" 
+                                                placeholder="e.g., 2000000" 
+                                                value="2000000"
+                                                min="0"
+                                                step="100000"
+                                            >
+                                        </div>
+                                        <button class="remove-bro-btn ml-3 p-2 text-red-400 hover:text-red-300 opacity-70 hover:opacity-100">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <button 
+                                    id="addBroBtn" 
+                                    class="px-4 py-3 btn-primary font-semibold rounded-lg flex items-center justify-center"
+                                >
+                                    <i class="fas fa-user-plus mr-2"></i>
+                                    Add BRO
+                                </button>
+                                
+                                <button 
+                                    id="calculateBtn" 
+                                    class="px-4 py-3 btn-success font-bold rounded-lg flex items-center justify-center"
+                                >
+                                    <i class="fas fa-calculator mr-2"></i>
+                                    Calculate
+                                </button>
+                            </div>
+                            
+                            <!-- Control Buttons -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <button 
+                                    id="resetBtn" 
+                                    class="px-4 py-3 bg-gray-800 hover:bg-gray-700 font-semibold rounded-lg flex items-center justify-center"
+                                >
+                                    <i class="fas fa-redo mr-2"></i>
+                                    Reset All
+                                </button>
+                                
+                                <button 
+                                    id="exitBtn" 
+                                    class="px-4 py-3 btn-danger font-bold rounded-lg flex items-center justify-center"
+                                >
+                                    <i class="fas fa-check mr-2"></i>
+                                    Finalize
+                                </button>
+                            </div>
+                            
+                            <!-- Formula Display -->
+                            <div class="mt-8 p-4 bg-black rounded-lg border border-gray-800">
+                                <div class="text-sm text-gray-400 mb-2">The Brotherhood Formula</div>
+                                <div class="text-sm space-y-1">
+                                    <div>Founder Stake = <span class="text-b-orange">10.800%</span> (fixed)</div>
+                                    <div>Remaining Pool = <span class="text-neon-green">89.200%</span></div>
+                                    <div class="p-2 bg-black/50 rounded mt-2">BRO % = (Investment / Total Investment) × <span class="text-neon-green">89.200%</span></div>
+                                    <div class="text-xs text-gray-500 mt-2">Percentages calculated to 3 decimal places (e.g., 44.600%)</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Section -->
+                        <div>
+                            <h3 class="text-lg font-bold mb-4 flex items-center">
+                                <i class="fas fa-chart-pie mr-3 text-neon-green"></i>
+                                Ownership Distribution
+                            </h3>
+                            
+                            <!-- Summary Stats -->
+                            <div id="summaryStats" class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-black p-4 rounded-lg">
+                                    <div class="text-sm text-gray-400">Total Investment</div>
+                                    <div id="totalInvestment" class="text-2xl font-bold text-neon-green">₹1,00,00,000</div>
+                                </div>
+                                <div class="bg-black p-4 rounded-lg">
+                                    <div class="text-sm text-gray-400">Active BROs</div>
+                                    <div id="totalBros" class="text-2xl font-bold text-electric-blue">3 BROs</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Stats -->
+                            <div class="mb-6">
+                                <div class="text-lg font-medium mb-3">Quick Stats</div>
+                                <div class="grid grid-cols-3 gap-3 text-center">
+                                    <div class="p-3 bg-black/30 rounded-lg">
+                                        <div class="text-2xl font-bold text-b-orange">10.800%</div>
+                                        <div class="text-xs text-gray-400">Founder</div>
+                                    </div>
+                                    <div class="p-3 bg-black/30 rounded-lg">
+                                        <div class="text-2xl font-bold text-neon-green" id="highestPercentage">44.600%</div>
+                                        <div class="text-xs text-gray-400">Highest BRO</div>
+                                    </div>
+                                    <div class="p-3 bg-black/30 rounded-lg">
+                                        <div class="text-2xl font-bold text-electric-blue" id="remainingPoolDisplay">89.200%</div>
+                                        <div class="text-xs text-gray-400">Remaining Pool</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Ownership Chart -->
+                            <div class="mb-8">
+                                <div class="flex justify-between items-center mb-3">
+                                    <div class="text-lg font-medium">Detailed Breakdown</div>
+                                    <div class="text-sm text-gray-400" id="calculationTime">Calculated just now</div>
+                                </div>
+                                
+                                <div id="ownershipChart" class="space-y-4 max-h-[300px] overflow-y-auto p-2">
+                                    <!-- Founder Row -->
+                                    <div class="owner-row founder">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black font-bold mr-3">F</div>
+                                                <div>
+                                                    <div class="font-bold">Bharath</div>
+                                                    <div class="text-xs text-gray-400">Founder • Fixed Stake</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-xl font-bold text-b-orange">10.800%</div>
+                                                <div class="text-xs text-gray-400">Non-negotiable</div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 10.8%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- BRO rows will be dynamically added here -->
+                                    <div class="owner-row investor">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">BRO 1</div>
+                                                <div>
+                                                    <div class="font-bold">BRO 1</div>
+                                                    <div class="text-xs text-gray-400">₹50,00,000 • Highest Investor</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-xl font-bold text-neon-green">44.600%</div>
+                                                <div class="text-xs text-gray-400">₹44.60 per ₹100 profit</div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 44.6%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="owner-row investor">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">BRO 2</div>
+                                                <div>
+                                                    <div class="font-bold">BRO 2</div>
+                                                    <div class="text-xs text-gray-400">₹30,00,000</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-xl font-bold text-electric-blue">26.760%</div>
+                                                <div class="text-xs text-gray-400">₹26.76 per ₹100 profit</div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 26.76%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="owner-row investor">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="flex items-center">
+                                                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">BRO 3</div>
+                                                <div>
+                                                    <div class="font-bold">BRO 3</div>
+                                                    <div class="text-xs text-gray-400">₹20,00,000</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-xl font-bold text-purple-400">17.840%</div>
+                                                <div class="text-xs text-gray-400">₹17.84 per ₹100 profit</div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 17.84%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Profit Distribution Example -->
+                            <div class="p-4 bg-black rounded-lg border border-gray-800">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-coins text-yellow-400 mr-3"></i>
+                                    <div class="font-medium">Profit Distribution Example</div>
+                                </div>
+                                <div class="text-sm text-gray-400">
+                                    <p class="mb-2">If BHRATHA makes <span class="text-neon-green">₹1,00,00,000</span> profit:</p>
+                                    <div class="grid grid-cols-2 gap-2 text-xs">
+                                        <div>Bharath gets: <span class="text-b-orange">₹10,80,000</span></div>
+                                        <div>BRO 1 gets: <span class="text-neon-green">₹44,60,000</span></div>
+                                        <div>BRO 2 gets: <span class="text-electric-blue">₹26,76,000</span></div>
+                                        <div>BRO 3 gets: <span class="text-purple-400">₹17,84,000</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Info -->
+            <div class="mt-12 p-6 bg-black/30 rounded-lg border border-gray-800">
+                <h3 class="text-xl font-bold mb-4">The Brotherhood Promise</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium mb-2 text-neon-green">Capital-Respecting</h4>
+                        <p class="text-gray-400 text-sm">Whoever invests more → automatically gets more ownership. No subjective negotiation.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2 text-electric-blue">Ego-Neutral</h4>
+                        <p class="text-gray-400 text-sm">Founder protected at 10.8%. Remaining 89.2% distributed purely in proportion to investment.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2 text-b-orange">Mathematically Fair</h4>
+                        <p class="text-gray-400 text-sm">Transparent formula, calculated to three decimal places. No hidden adjustments.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2 text-purple-400">Vision-Protected</h4>
+                        <p class="text-gray-400 text-sm">Founder retains veto power on key decisions. Brand/IP stays outside company structure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-20">
+            <div class="text-xs text-gray-600 tracking-widest uppercase mb-4">Continue to final section</div>
+            <div class="animate-bounce">
+                <i class="fas fa-chevron-down text-b-orange text-xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Final Section with Request Invite -->
+    <section id="final" class="final-section">
+        <div class="max-w-4xl mx-auto w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-6xl font-bold mb-8 uppercase">
+                    <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+                    A brotherhood-led global lifestyle brand. Rooted in warmth. Built with restraint. Designed for cities that value quality.
+                </p>
+            </div>
+
+            <!-- Currency Comparison -->
+            <div class="currency-comparison">
+                <div class="currency-item">
+                    <div class="currency-symbol symbol-btc"></div>
+                    <div class="currency-label"></div>
+                </div>
+                
+                <div class="currency-item">
+                    <div class="currency-symbol symbol-bhr"></div>
+                    <div class="currency-label"></div>
+                </div>
+            </div>
+
+            <p class="text-gray-500 max-w-lg mx-auto text-center my-12">
+                The Rupee B represents our commitment to value creation with integrity. 
+                It glows brighter than the dollar sign, symbolizing our focus on sustainable wealth over quick gains.
+            </p>
+
+            <!-- Request Invite Button -->
+            <button onclick="openModal()" class="request-invite-btn">
+                <div class="flex items-center justify-center">
+                    <span class="mr-3">REQUEST INVITATION</span>
+                    <div class="flex">
+                        <span class="symbol-bhr text-lg"></span>
+                    </div>
+                </div>
+            </button>
+
+            <!-- Brotherhood Principles -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+                <div class="p-6 glass-card">
+                    <div class="text-b-orange text-2xl mb-4">01</div>
+                    <h3 class="text-lg font-bold mb-3">Quality Without Compromise</h3>
+                    <p class="text-gray-400 text-sm">The only defensible moral anchor in regulated products.</p>
+                </div>
+                
+                <div class="p-6 glass-card">
+                    <div class="text-neon-green text-2xl mb-4">02</div>
+                    <h3 class="text-lg font-bold mb-3">Safety Without Shortcuts</h3>
+                    <p class="text-gray-400 text-sm">Legal credibility through rigorous safety protocols.</p>
+                </div>
+                
+                <div class="p-6 glass-card">
+                    <div class="text-electric-blue text-2xl mb-4">03</div>
+                    <h3 class="text-lg font-bold mb-3">Growth Without Extraction</h3>
+                    <p class="text-gray-400 text-sm">Local businesses remain independent. We grow together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-8 md:p-12 text-center border-t border-gray-900">
+        <div class="text-xl font-bold tracking-widest mb-4">
+            <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+        </div>
+        <p class="text-gray-600 text-xs md:text-sm max-w-md mx-auto tracking-widest uppercase">
+            Built on trust. Protected by standards. Brotherhood by design.
+        </p>
+        <p class="text-gray-700 text-xs mt-6">
+            © 2024 BH₹ATHA. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- Access Modal -->
+    <div id="accessModal" class="p-6 md:p-24 hidden">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-16">
-                <h2 class="text-2xl font-bold tracking-tighter uppercase">Application <span class="brand-dot">.</span></h2>
-                <button onclick="closeModal()" class="text-xs tracking-widest opacity-50 hover:opacity-100">CLOSE</button>
+                <h2 class="text-2xl font-bold tracking-tighter uppercase">Brotherhood Application <span class="brand-dot">.</span></h2>
+                <button onclick="closeModal()" class="text-xs tracking-widest opacity-50 hover:opacity-100 hover:text-neon-green transition">CLOSE</button>
             </div>
 
             <form id="applicationForm">
+                <!-- Personal Information -->
+                <div class="mb-20">
+                    <span class="section-label">Personal Information</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="form-label">First Name *</label>
+                            <input type="text" name="firstName" class="form-input" placeholder="Enter your first name" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" name="lastName" class="form-input" placeholder="Enter your last name" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Date of Birth *</label>
+                            <input type="date" name="dob" class="form-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Philosophy Section -->
                 <div class="mb-20">
                     <span class="section-label">I. Philosophy</span>
                     <div class="space-y-8">
-                        <div><label class="text-xs opacity-50">1. Define "Restraint" in a world of loud marketing.</label><input type="text" name="P1" required></div>
-                        <div><label class="text-xs opacity-50">2. Would you choose 10% less profit for 100% more brand silence?</label><input type="text" name="P2" required></div>
-                        <div><label class="text-xs opacity-50">3. What is the 50-year legacy of your life's work?</label><input type="text" name="P3" required></div>
-                        <div><label class="text-xs opacity-50">4. How do you manage your ego when the brand succeeds?</label><input type="text" name="P4" required></div>
-                        <div><label class="text-xs opacity-50">5. Is truth a flexible tool or a fixed foundation in your business?</label><input type="text" name="P5" required></div>
-                        <div><label class="text-xs opacity-50">6. Why do you want to be a Monk in a world of influencers?</label><input type="text" name="P6" required></div>
-                        <div><label class="text-xs opacity-50">7. What is the one value you will never sell?</label><input type="text" name="P7" required></div>
+                        <div class="question-item">
+                            <div class="question-text">1. Define "Restraint" in a world of loud marketing.</div>
+                            <input type="text" name="P1" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">2. Would you choose 10% less profit for 100% more brand silence?</div>
+                            <input type="text" name="P2" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">3. What is the 50-year legacy of your life's work?</div>
+                            <input type="text" name="P3" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">4. How do you manage your ego when the brand succeeds?</div>
+                            <input type="text" name="P4" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">5. Is truth a flexible tool or a fixed foundation in your business?</div>
+                            <input type="text" name="P5" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">6. Why do you want to be a Monk in a world of influencers?</div>
+                            <input type="text" name="P6" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">7. What is the one value you will never sell?</div>
+                            <input type="text" name="P7" class="form-input" required>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Financial & Business Section -->
                 <div class="mb-20">
                     <span class="section-label">II. Financial & Business</span>
                     <div class="space-y-8">
-                        <div><label class="text-xs opacity-50">1. What is the source of your initial capital?</label><input type="text" name="F1" required></div>
-                        <div><label class="text-xs opacity-50">2. How much of your margin is dedicated strictly to "Quality & Safety"?</label><input type="text" name="F2" required></div>
-                        <div><label class="text-xs opacity-50">3. Are you willing to open your books to the Brotherhood monthly?</label><input type="text" name="F3" required></div>
-                        <div><label class="text-xs opacity-50">4. Do you value "Scaling Fast" or "Scaling Right"?</label><input type="text" name="F4" required></div>
-                        <div><label class="text-xs opacity-50">5. How do you handle a partner who prioritizes money over the standard?</label><input type="text" name="F5" required></div>
-                        <div><label class="text-xs opacity-50">6. What is your strategy for regulatory compliance in your city?</label><input type="text" name="F6" required></div>
-                        <div><label class="text-xs opacity-50">7. Do you accept the 1.08% Brotherhood Revenue Fee as a non-negotiable?</label><input type="text" name="F7" required></div>
+                        <div class="question-item">
+                            <div class="question-text">1. What is the source of your initial capital?</div>
+                            <input type="text" name="F1" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">2. How much of your margin is dedicated strictly to "Quality & Safety"?</div>
+                            <input type="text" name="F2" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">3. Are you willing to open your books to the Brotherhood monthly?</div>
+                            <input type="text" name="F3" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">4. Do you value "Scaling Fast" or "Scaling Right"?</div>
+                            <input type="text" name="F4" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">5. How do you handle a partner who prioritizes money over the standard?</div>
+                            <input type="text" name="F5" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">6. What is your strategy for regulatory compliance in your city?</div>
+                            <input type="text" name="F6" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">7. Do you accept the 1.08% Brotherhood Revenue Fee as a non-negotiable?</div>
+                            <input type="text" name="F7" class="form-input" required>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Brotherhood & Business Section -->
                 <div class="mb-20">
                     <span class="section-label">III. Brotherhood & Business</span>
                     <div class="space-y-8">
-                        <div><label class="text-xs opacity-50">1. If a brother fails, do you fix them or fire them?</label><input type="text" name="B1" required></div>
-                        <div><label class="text-xs opacity-50">2. Define loyalty in a crisis.</label><input type="text" name="B2" required></div>
-                        <div><label class="text-xs opacity-50">3. Can you follow a system you didn't create?</label><input type="text" name="B3" required></div>
-                        <div><label class="text-xs opacity-50">4. How do you contribute to the Brotherhood beyond money?</label><input type="text" name="B4" required></div>
-                        <div><label class="text-xs opacity-50">5. Will you prioritize a Brotherhood supplier over a cheaper outsider?</label><input type="text" name="B5" required></div>
-                        <div><label class="text-xs opacity-50">6. Is your word worth more than a signed contract?</label><input type="text" name="B6" required></div>
-                        <div><label class="text-xs opacity-50">7. Are you ready to remain invisible while the Brotherhood grows?</label><input type="text" name="B7" required></div>
+                        <div class="question-item">
+                            <div class="question-text">1. If a brother fails, do you fix them or fire them?</div>
+                            <input type="text" name="B1" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">2. Define loyalty in a crisis.</div>
+                            <input type="text" name="B2" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">3. Can you follow a system you didn't create?</div>
+                            <input type="text" name="B3" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">4. How do you contribute to the Brotherhood beyond money?</div>
+                            <input type="text" name="B4" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">5. Will you prioritize a Brotherhood supplier over a cheaper outsider?</div>
+                            <input type="text" name="B5" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">6. Is your word worth more than a signed contract?</div>
+                            <input type="text" name="B6" class="form-input" required>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-text">7. Are you ready to remain invisible while the Brotherhood grows?</div>
+                            <input type="text" name="B7" class="form-input" required>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Membership Privileges -->
                 <div class="mb-20 glass-card p-8 border-l-2 border-orange-500">
                     <h3 class="text-sm tracking-widest mb-4 brand-b">MEMBERSHIP PRIVILEGES</h3>
                     <ul class="text-xs space-y-3 opacity-80 mb-8 list-disc pl-4">
-                        <li>Access to the private IPNOTEC infrastructure and global brotherhood network.</li>
+                        <li>Access to the private infrastructure and global brotherhood network.</li>
                         <li>Direct partnership opportunities within exclusive global brew and green retail operations.</li>
                         <li>Operational immunity through shared restraint and character-vetted alliances.</li>
                     </ul>
                     <div class="text-[10px] tracking-widest space-y-2 opacity-60">
-                        <p>JOINING FEE: ₹1,08,000 (NON-REFUNDABLE)</p>
+                        <p>JOINING FEE: ₹108,000 (NON-REFUNDABLE)</p>
                         <p>REVENUE SHARE: 1.08% FOR BHRATHA OPERATIONS</p>
                     </div>
                 </div>
@@ -143,85 +1114,91 @@
                 <button type="submit" class="w-full py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase">
                     Submit to Brotherhood
                 </button>
-
-                <!-- Added Calculator and Home Buttons -->
-                <div class="flex space-x-4 mt-6">
-                    <button type="button" onclick="window.open('https://bhratha-calc.vercel.app', '_blank')" class="w-1/2 py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase flex items-center justify-center">
-                        <span>CALCULATOR</span>
-                    </button>
-                    <button type="button" onclick="closeModal()" class="w-1/2 py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase flex items-center justify-center">
-                        <span>HOME</span>
-                    </button>
-                </div>
             </form>
         </div>
     </div>
 
-    <nav class="p-8 flex justify-between items-center fixed w-full z-50 mix-blend-difference">
-        <div class="text-2xl font-bold tracking-tighter uppercase">
-            <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
-        </div>
-        <div class="text-[10px] tracking-[0.5em] opacity-40 uppercase">Stealth</div>
-    </nav>
-
-    <main class="min-h-screen flex flex-col items-center justify-center pt-24">
-        
-        <section class="text-center px-6 mb-24">
-            <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-8 uppercase">
-                <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
-            </h1>
-            <div class="space-y-2">
-                <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Brotherhood-Led Global Lifestyle.</p>
-                <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Restraint is Power.</p>
-            </div>
-        </section>
-
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-0 w-full max-w-6xl border-t border-b border-white/10">
-            <div class="glass-card p-12 space-y-6">
-                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Foundation</h2>
-                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
-                    <p>GLOBAL architecture.</p>
-                    <p>BHARAT soul.</p>
-                    <p>INDEPENDENT by design.</p>
-                </div>
-            </div>
-            <div class="glass-card p-12 space-y-6 md:border-l md:border-r border-white/10">
-                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Operations</h2>
-                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
-                    <p>Brew / Café / Green Retail.</p>
-                    <p>Global cities.</p>
-                    <p>Select partners.</p>
-                </div>
-            </div>
-            <div class="glass-card p-12 space-y-6">
-                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Status</h2>
-                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
-                    <p>Private Access Only.</p>
-                    <p>Proof of Character required.</p>
-                    <p>Feel Bharat over Show Bharat.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-32 flex flex-col items-center space-y-12">
-            <div class="flex space-x-20">
-                <div class="symbol-btc text-4xl"></div>
-                <div class="symbol-bhr text-4xl"></div>
-            </div>
-            <button onclick="openModal()" class="group relative px-12 py-4 border border-white/10 overflow-hidden">
-                <span class="relative z-10 text-[10px] tracking-[0.5em] uppercase group-hover:text-black transition-colors duration-300">Request Access</span>
-                <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center hidden p-4">
+        <div class="glass-card p-8 rounded-2xl max-w-md w-full text-center">
+            <div class="text-4xl mb-6">✅</div>
+            <h2 class="text-2xl font-bold mb-4">Application Received</h2>
+            <p class="text-gray-400 mb-8">Your request to join the Brotherhood has been submitted. We'll review your application and contact you within 7-10 business days.</p>
+            <button onclick="closeSuccessModal()" class="px-8 py-3 bg-white text-black font-bold rounded-lg">
+                Return to Site
             </button>
-        </section>
-    </main>
-
-    <footer class="p-12 text-center">
-        <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">
-            © <span class="brand-b">B</span>H<span class="brand-rupee">₹</span>ATHA. Rooted in warmth. Built in Silence.
-        </p>
-    </footer>
+        </div>
+    </div>
 
     <script>
+        // Initialize phone input
+        let phoneInput;
+        document.addEventListener('DOMContentLoaded', function() {
+            phoneInput = window.intlTelInput(document.querySelector("#phone"), {
+                initialCountry: "in",
+                separateDialCode: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+                preferredCountries: ["in", "us", "gb", "ae", "sg"],
+                hiddenInput: "full_phone",
+                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                    return "e.g. " + selectedCountryPlaceholder;
+                }
+            });
+        });
+
+        // Scroll Indicator Logic
+        const sections = document.querySelectorAll('section');
+        const scrollDots = document.querySelectorAll('.scroll-dot');
+        const stealthText = document.getElementById('stealthText');
+
+        function updateScrollIndicator() {
+            const scrollPosition = window.scrollY + window.innerHeight / 3;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    scrollDots.forEach(dot => dot.classList.remove('active'));
+                    scrollDots[index].classList.add('active');
+                    
+                    // Update STEALTH text color based on scroll position
+                    if (stealthText) {
+                        // Remove all color classes
+                        stealthText.classList.remove('scrolled', 'scrolled-more', 'scrolled-most');
+                        
+                        // Add appropriate class based on section
+                        if (index === 0) {
+                            // First section - white
+                            stealthText.style.color = 'white';
+                        } else if (index === 1) {
+                            // Second section - light gray
+                            stealthText.classList.add('scrolled');
+                        } else if (index === 2) {
+                            // Third section - darker gray
+                            stealthText.classList.add('scrolled-most');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Click on scroll dots to navigate
+        scrollDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                const targetSection = document.getElementById(sectionId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Dynamic text effect
         const palette = ['#ff6900', '#39FF14', '#0070FF', '#ffffff'];
 
         function glowEffect() {
@@ -232,6 +1209,7 @@
             });
         }
 
+        // Modal functions
         function openModal() {
             document.getElementById('accessModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -242,29 +1220,467 @@
             document.body.style.overflow = 'auto';
         }
 
+        function openSuccessModal() {
+            document.getElementById('successModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Application form submission - FIXED WHATSAPP URL
         document.getElementById('applicationForm').onsubmit = function(e) {
             e.preventDefault();
             
+            // Validate phone number
+            if (!phoneInput.isValidNumber()) {
+                alert("Please enter a valid phone number");
+                return;
+            }
+            
             const formData = new FormData(this);
+            const phoneNumber = phoneInput.getNumber();
+            
             let message = "BH₹ATHA APPLICATION\n\n";
             
+            // Personal Information
+            message += "-- PERSONAL INFORMATION --\n";
+            message += `First Name: ${formData.get('firstName')}\n`;
+            message += `Last Name: ${formData.get('lastName')}\n`;
+            message += `Date of Birth: ${formData.get('dob')}\n`;
+            message += `Phone: ${phoneNumber}\n\n`;
+            
+            // Philosophy
             message += "-- PHILOSOPHY --\n";
-            for(let i=1; i<=7; i++) message += `P${i}: ${formData.get('P'+i)}\n`;
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('P'+i)}\n`;
             
-            message += "\n-- FINANCIAL --\n";
-            for(let i=1; i<=7; i++) message += `F${i}: ${formData.get('F'+i)}\n`;
+            // Financial
+            message += "\n-- FINANCIAL & BUSINESS --\n";
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('F'+i)}\n`;
             
-            message += "\n-- BROTHERHOOD --\n";
-            for(let i=1; i<=7; i++) message += `B${i}: ${formData.get('B'+i)}\n`;
+            // Brotherhood
+            message += "\n-- BROTHERHOOD & BUSINESS --\n";
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('B'+i)}\n`;
 
-            message += "\nAgreement: I accept the ₹1,08,000 fee and 1.08% revenue share.";
+            message += "\nI accept the ₹108,000 fee and 1.08% revenue share.";
 
-            // Fixed phone number and direct API link
-            const phoneNumber = "916292306090";
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+            // FIXED: Correct WhatsApp URL format
+            const whatsappUrl = `https://wa.me/916292306090?text=${encodeURIComponent(message)}`;
             
+            // Open WhatsApp in new tab
             window.open(whatsappUrl, '_blank');
+            
+            // Close modal and show success message
+            closeModal();
+            setTimeout(openSuccessModal, 300);
         };
+
+        // Calculator Logic
+        const broInputsContainer = document.getElementById('broInputsContainer');
+        const addBroBtn = document.getElementById('addBroBtn');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const exitBtn = document.getElementById('exitBtn');
+        const ownershipChart = document.getElementById('ownershipChart');
+        const totalInvestmentEl = document.getElementById('totalInvestment');
+        const totalBrosEl = document.getElementById('totalBros');
+        const highestPercentageEl = document.getElementById('highestPercentage');
+        const remainingPoolDisplayEl = document.getElementById('remainingPoolDisplay');
+        const calculationTimeEl = document.getElementById('calculationTime');
+        
+        // Colors for BROs
+        const broColors = [
+            'bg-neon-green', 'bg-electric-blue', 'bg-purple-500', 'bg-pink-500', 
+            'bg-yellow-500', 'bg-indigo-500', 'bg-teal-500', 'bg-red-500',
+            'bg-amber-500', 'bg-cyan-500', 'bg-lime-500', 'bg-emerald-500'
+        ];
+        
+        // Store BRO data
+        let bros = [
+            { id: 1, investment: 5000000, color: broColors[0] },
+            { id: 2, investment: 3000000, color: broColors[1] },
+            { id: 3, investment: 2000000, color: broColors[2] }
+        ];
+        
+        // BRO counter
+        let broCounter = 3;
+        
+        // Format currency in Indian format
+        function formatCurrency(amount) {
+            if (!amount && amount !== 0) return '₹0';
+            
+            if (amount >= 10000000) {
+                return '₹' + (amount / 10000000).toFixed(2) + ' Cr';
+            } else if (amount >= 100000) {
+                return '₹' + (amount / 100000).toFixed(2) + ' L';
+            } else {
+                return '₹' + amount.toLocaleString('en-IN');
+            }
+        }
+        
+        // Format percentage to 3 decimal places
+        function formatPercentage(value) {
+            return value.toFixed(3) + '%';
+        }
+        
+        // Add a new BRO input field
+        function addBroInput() {
+            broCounter++;
+            const newBroIndex = bros.length;
+            const colorClass = broColors[newBroIndex % broColors.length];
+            
+            const broDiv = document.createElement('div');
+            broDiv.className = 'bro-input-item fade-in';
+            broDiv.innerHTML = `
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full ${colorClass} flex items-center justify-center text-black font-bold mr-3">BRO ${broCounter}</div>
+                    <div class="flex-grow">
+                        <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
+                        <input 
+                            type="number" 
+                            class="bro-amount bg-black border border-gray-700 rounded-lg px-4 py-3 text-lg w-full" 
+                            placeholder="e.g., 1000000" 
+                            value="1000000"
+                            min="0"
+                            step="100000"
+                            data-id="${broCounter}"
+                        >
+                    </div>
+                    <button class="remove-bro-btn ml-3 p-2 text-red-400 hover:text-red-300 opacity-70 hover:opacity-100">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            broInputsContainer.appendChild(broDiv);
+            
+            // Add to bros array
+            bros.push({
+                id: broCounter,
+                investment: 1000000,
+                color: colorClass
+            });
+            
+            // Add event listener to remove button
+            const removeBtn = broDiv.querySelector('.remove-bro-btn');
+            removeBtn.addEventListener('click', function() {
+                const broId = parseInt(broDiv.querySelector('.bro-amount').dataset.id);
+                removeBro(broId, broDiv);
+            });
+            
+            // Add event listener to input
+            const input = broDiv.querySelector('.bro-amount');
+            input.addEventListener('input', function() {
+                const broId = parseInt(this.dataset.id);
+                updateBroInvestment(broId, parseFloat(this.value) || 0);
+                // Auto-calculate after a delay
+                setTimeout(calculateOwnership, 500);
+            });
+            
+            // Recalculate after adding
+            calculateOwnership();
+        }
+        
+        // Remove a BRO
+        function removeBro(broId, element) {
+            // Remove from DOM
+            if (element && element.parentNode) {
+                element.classList.add('opacity-0', 'transform', '-translate-x-10');
+                setTimeout(() => {
+                    if (element.parentNode) {
+                        element.parentNode.removeChild(element);
+                    }
+                }, 300);
+            }
+            
+            // Remove from bros array
+            bros = bros.filter(bro => bro.id !== broId);
+            
+            // Recalculate
+            calculateOwnership();
+        }
+        
+        // Update BRO investment amount
+        function updateBroInvestment(broId, investment) {
+            const bro = bros.find(b => b.id === broId);
+            if (bro) {
+                bro.investment = investment;
+            }
+        }
+        
+        // Calculate ownership percentages
+        function calculateOwnership() {
+            // Get all investment amounts
+            const broInputs = document.querySelectorAll('.bro-amount');
+            bros.forEach((bro, index) => {
+                if (broInputs[index]) {
+                    bro.investment = parseFloat(broInputs[index].value) || 0;
+                }
+            });
+            
+            // Calculate total investment
+            const totalInvestment = bros.reduce((sum, bro) => sum + bro.investment, 0);
+            
+            // Update summary stats
+            totalInvestmentEl.textContent = formatCurrency(totalInvestment);
+            totalBrosEl.textContent = `${bros.length} BRO${bros.length !== 1 ? 's' : ''}`;
+            remainingPoolDisplayEl.textContent = formatPercentage(89.2);
+            
+            // Calculate percentages for each BRO
+            bros.forEach(bro => {
+                bro.percentage = totalInvestment > 0 ? 
+                    (bro.investment / totalInvestment) * 89.2 : 0;
+                bro.formattedInvestment = formatCurrency(bro.investment);
+                bro.formattedPercentage = formatPercentage(bro.percentage);
+            });
+            
+            // Sort BROs by percentage (highest first)
+            bros.sort((a, b) => b.percentage - a.percentage);
+            
+            // Update highest percentage
+            if (bros.length > 0) {
+                highestPercentageEl.textContent = formatPercentage(bros[0].percentage);
+            } else {
+                highestPercentageEl.textContent = '0.000%';
+            }
+            
+            // Update calculation time
+            const now = new Date();
+            calculationTimeEl.textContent = `Calculated at ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            // Display results
+            displayResults(totalInvestment);
+        }
+        
+        // Display calculation results
+        function displayResults(totalInvestment) {
+            // Clear existing BRO rows (keep founder row)
+            const founderRow = ownershipChart.querySelector('.owner-row.founder');
+            ownershipChart.innerHTML = '';
+            
+            // Add founder row back
+            if (founderRow) {
+                ownershipChart.appendChild(founderRow);
+            } else {
+                // Create founder row
+                const founderDiv = document.createElement('div');
+                founderDiv.className = 'owner-row founder';
+                founderDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black font-bold mr-3">F</div>
+                            <div>
+                                <div class="font-bold">Bharath</div>
+                                <div class="text-xs text-gray-400">Founder • Fixed Stake</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold text-b-orange">10.800%</div>
+                            <div class="text-xs text-gray-400">Non-negotiable</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10.8%"></div>
+                    </div>
+                `;
+                ownershipChart.appendChild(founderDiv);
+            }
+            
+            // Add BRO rows
+            bros.forEach((bro, index) => {
+                const broDiv = document.createElement('div');
+                broDiv.className = 'owner-row investor fade-in';
+                
+                // Determine if this is the highest BRO
+                const highestBadge = index === 0 ? '• Highest Investor' : '';
+                
+                // Get color from class
+                const colorMap = {
+                    'bg-neon-green': '#39FF14',
+                    'bg-electric-blue': '#0070FF',
+                    'bg-purple-500': '#8a2be2',
+                    'bg-pink-500': '#ff1493',
+                    'bg-yellow-500': '#ffd700',
+                    'bg-indigo-500': '#4b0082',
+                    'bg-teal-500': '#20b2aa',
+                    'bg-red-500': '#ff4444',
+                    'bg-amber-500': '#ffbf00',
+                    'bg-cyan-500': '#00ffff',
+                    'bg-lime-500': '#bfff00',
+                    'bg-emerald-500': '#00cc99'
+                };
+                
+                const broColor = colorMap[bro.color] || '#ffffff';
+                
+                // Calculate profit per 100
+                const profitPer100 = bro.percentage.toFixed(3);
+                
+                broDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full ${bro.color} flex items-center justify-center text-black font-bold mr-3">BRO ${bro.id}</div>
+                            <div>
+                                <div class="font-bold">BRO ${bro.id}</div>
+                                <div class="text-xs text-gray-400">${bro.formattedInvestment} ${highestBadge}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold" style="color: ${broColor}">${bro.formattedPercentage}</div>
+                            <div class="text-xs text-gray-400">₹${profitPer100} per ₹100 profit</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${bro.percentage}%"></div>
+                    </div>
+                `;
+                
+                ownershipChart.appendChild(broDiv);
+            });
+        }
+        
+        // Reset all inputs
+        function resetAll() {
+            // Reset bros array
+            bros = [
+                { id: 1, investment: 5000000, color: broColors[0] },
+                { id: 2, investment: 3000000, color: broColors[1] },
+                { id: 3, investment: 2000000, color: broColors[2] }
+            ];
+            
+            // Reset counter
+            broCounter = 3;
+            
+            // Recreate input fields
+            broInputsContainer.innerHTML = '';
+            
+            // Re-add initial BROs
+            for (let i = 0; i < 3; i++) {
+                const broDiv = document.createElement('div');
+                broDiv.className = 'bro-input-item fade-in';
+                broDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full ${broColors[i]} flex items-center justify-center text-black font-bold mr-3">BRO ${i+1}</div>
+                        <div class="flex-grow">
+                            <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
+                            <input 
+                                type="number" 
+                                class="bro-amount bg-black border border-gray-700 rounded-lg px-4 py-3 text-lg w-full" 
+                                placeholder="e.g., ${[5000000, 3000000, 2000000][i]}" 
+                                value="${[5000000, 3000000, 2000000][i]}"
+                                min="0"
+                                step="100000"
+                                data-id="${i+1}"
+                            >
+                        </div>
+                        <button class="remove-bro-btn ml-3 p-2 text-red-400 hover:text-red-300 opacity-70 hover:opacity-100">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                broInputsContainer.appendChild(broDiv);
+                
+                // Add event listeners
+                const removeBtn = broDiv.querySelector('.remove-bro-btn');
+                removeBtn.addEventListener('click', function() {
+                    const broId = parseInt(broDiv.querySelector('.bro-amount').dataset.id);
+                    removeBro(broId, broDiv);
+                });
+                
+                const input = broDiv.querySelector('.bro-amount');
+                input.addEventListener('input', function() {
+                    const broId = parseInt(this.dataset.id);
+                    updateBroInvestment(broId, parseFloat(this.value) || 0);
+                    setTimeout(calculateOwnership, 500);
+                });
+            }
+            
+            // Recalculate
+            calculateOwnership();
+            
+            // Show notification
+            calculateBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Reset Complete!';
+            calculateBtn.classList.remove('btn-success');
+            calculateBtn.classList.add('btn-primary');
+            
+            setTimeout(() => {
+                calculateBtn.innerHTML = '<i class="fas fa-calculator mr-2"></i> Calculate';
+                calculateBtn.classList.remove('btn-primary');
+                calculateBtn.classList.add('btn-success');
+            }, 2000);
+        }
+
+        // Initialize calculator
+        function initCalculator() {
+            // Add event listeners to existing BRO inputs
+            document.querySelectorAll('.bro-amount').forEach((input, index) => {
+                input.dataset.id = (index + 1).toString();
+                input.addEventListener('input', function() {
+                    const broId = parseInt(this.dataset.id);
+                    updateBroInvestment(broId, parseFloat(this.value) || 0);
+                    setTimeout(calculateOwnership, 500);
+                });
+            });
+            
+            // Add event listeners to existing remove buttons
+            document.querySelectorAll('.remove-bro-btn').forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    const broDiv = this.closest('.bro-input-item');
+                    const broId = parseInt(broDiv.querySelector('.bro-amount').dataset.id);
+                    removeBro(broId, broDiv);
+                });
+            });
+            
+            // Add event listeners to buttons
+            if (addBroBtn) addBroBtn.addEventListener('click', addBroInput);
+            if (calculateBtn) calculateBtn.addEventListener('click', calculateOwnership);
+            if (resetBtn) resetBtn.addEventListener('click', resetAll);
+            if (exitBtn) exitBtn.addEventListener('click', function() {
+                alert('Ownership calculation finalized. Scroll down to request invitation.');
+                window.scrollTo({
+                    top: document.getElementById('final').offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Calculate initial ownership
+            calculateOwnership();
+            
+            // Auto-calculate when inputs change (with debounce)
+            let calculateTimeout;
+            if (broInputsContainer) {
+                broInputsContainer.addEventListener('input', function(e) {
+                    if (e.target.classList.contains('bro-amount')) {
+                        clearTimeout(calculateTimeout);
+                        calculateTimeout = setTimeout(calculateOwnership, 800);
+                    }
+                });
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize calculator
+            initCalculator();
+            
+            // Initialize scroll indicator
+            window.addEventListener('scroll', updateScrollIndicator);
+            updateScrollIndicator();
+            
+            // Initialize dynamic text effect
+            setInterval(glowEffect, 3000);
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Escape to close modals
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeSuccessModal();
+                }
+            });
+        });
     </script>
 </body>
 </html>
