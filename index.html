@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BH₹ATHA. | Private Protocol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --b-orange: #ff6900;
+            --neon-green: #39FF14;
+            --electric-blue: #0070FF;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        .brand-b { color: var(--b-orange); }
+        .brand-rupee { color: var(--neon-green); }
+        .brand-hatha { color: var(--white); }
+        .brand-dot { color: var(--electric-blue); }
+
+        .dynamic-text {
+            transition: color 0.2s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border 0.5s ease;
+        }
+
+        .glass-card:hover {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        ::-webkit-scrollbar { display: none; }
+
+        .symbol-btc::before { content: "₿$"; color: #FFD700; opacity: 0.5; }
+        .symbol-bhr::before { content: "₹B"; color: var(--neon-green); opacity: 0.5; }
+
+        /* Modal Styles */
+        #accessModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        input, textarea {
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            padding: 10px 0;
+            color: white;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        input:focus { border-bottom: 1px solid var(--neon-green); }
+        
+        .section-label {
+            color: var(--b-orange);
+            letter-spacing: 0.3em;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased" onmousemove="glowEffect()" onclick="glowEffect()">
+
+    <div id="accessModal" class="p-6 md:p-24">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-16">
+                <h2 class="text-2xl font-bold tracking-tighter uppercase">Application <span class="brand-dot">.</span></h2>
+                <button onclick="closeModal()" class="text-xs tracking-widest opacity-50 hover:opacity-100">CLOSE</button>
+            </div>
+
+            <form id="applicationForm">
+                <div class="mb-20">
+                    <span class="section-label">I. Philosophy</span>
+                    <div class="space-y-8">
+                        <div><label class="text-xs opacity-50">1. Define "Restraint" in a world of loud marketing.</label><input type="text" name="P1" required></div>
+                        <div><label class="text-xs opacity-50">2. Would you choose 10% less profit for 100% more brand silence?</label><input type="text" name="P2" required></div>
+                        <div><label class="text-xs opacity-50">3. What is the 50-year legacy of your life's work?</label><input type="text" name="P3" required></div>
+                        <div><label class="text-xs opacity-50">4. How do you manage your ego when the brand succeeds?</label><input type="text" name="P4" required></div>
+                        <div><label class="text-xs opacity-50">5. Is truth a flexible tool or a fixed foundation in your business?</label><input type="text" name="P5" required></div>
+                        <div><label class="text-xs opacity-50">6. Why do you want to be a Monk in a world of influencers?</label><input type="text" name="P6" required></div>
+                        <div><label class="text-xs opacity-50">7. What is the one value you will never sell?</label><input type="text" name="P7" required></div>
+                    </div>
+                </div>
+
+                <div class="mb-20">
+                    <span class="section-label">II. Financial & Business</span>
+                    <div class="space-y-8">
+                        <div><label class="text-xs opacity-50">1. What is the source of your initial capital?</label><input type="text" name="F1" required></div>
+                        <div><label class="text-xs opacity-50">2. How much of your margin is dedicated strictly to "Quality & Safety"?</label><input type="text" name="F2" required></div>
+                        <div><label class="text-xs opacity-50">3. Are you willing to open your books to the Brotherhood monthly?</label><input type="text" name="F3" required></div>
+                        <div><label class="text-xs opacity-50">4. Do you value "Scaling Fast" or "Scaling Right"?</label><input type="text" name="F4" required></div>
+                        <div><label class="text-xs opacity-50">5. How do you handle a partner who prioritizes money over the standard?</label><input type="text" name="F5" required></div>
+                        <div><label class="text-xs opacity-50">6. What is your strategy for regulatory compliance in your city?</label><input type="text" name="F6" required></div>
+                        <div><label class="text-xs opacity-50">7. Do you accept the 1.08% Brotherhood Revenue Fee as a non-negotiable?</label><input type="text" name="F7" required></div>
+                    </div>
+                </div>
+
+                <div class="mb-20">
+                    <span class="section-label">III. Brotherhood & Business</span>
+                    <div class="space-y-8">
+                        <div><label class="text-xs opacity-50">1. If a brother fails, do you fix them or fire them?</label><input type="text" name="B1" required></div>
+                        <div><label class="text-xs opacity-50">2. Define loyalty in a crisis.</label><input type="text" name="B2" required></div>
+                        <div><label class="text-xs opacity-50">3. Can you follow a system you didn't create?</label><input type="text" name="B3" required></div>
+                        <div><label class="text-xs opacity-50">4. How do you contribute to the Brotherhood beyond money?</label><input type="text" name="B4" required></div>
+                        <div><label class="text-xs opacity-50">5. Will you prioritize a Brotherhood supplier over a cheaper outsider?</label><input type="text" name="B5" required></div>
+                        <div><label class="text-xs opacity-50">6. Is your word worth more than a signed contract?</label><input type="text" name="B6" required></div>
+                        <div><label class="text-xs opacity-50">7. Are you ready to remain invisible while the Brotherhood grows?</label><input type="text" name="B7" required></div>
+                    </div>
+                </div>
+
+                <div class="mb-20 glass-card p-8 border-l-2 border-orange-500">
+                    <h3 class="text-sm tracking-widest mb-4 brand-b">MEMBERSHIP PRIVILEGES</h3>
+                    <ul class="text-xs space-y-3 opacity-80 mb-8 list-disc pl-4">
+                        <li>Access to the private IPNOTEC infrastructure and global brotherhood network.</li>
+                        <li>Direct partnership opportunities within exclusive global brew and green retail operations.</li>
+                        <li>Operational immunity through shared restraint and character-vetted alliances.</li>
+                    </ul>
+                    <div class="text-[10px] tracking-widest space-y-2 opacity-60">
+                        <p>JOINING FEE: ₹1,08,000 (NON-REFUNDABLE)</p>
+                        <p>REVENUE SHARE: 1.08% FOR BHRATHA OPERATIONS</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase">
+                    Submit to Brotherhood
+                </button>
+            </form>
+        </div>
+    </div>
+    <nav class="p-8 flex justify-between items-center fixed w-full z-50 mix-blend-difference">
+        <div class="text-2xl font-bold tracking-tighter uppercase">
+            <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+        </div>
+        <div class="text-[10px] tracking-[0.5em] opacity-40 uppercase">Global Stealth</div>
+    </nav>
+
+    <main class="min-h-screen flex flex-col items-center justify-center pt-24">
+        
+        <section class="text-center px-6 mb-24">
+            <h1 class="text-5xl md:text-8xl font-bold tracking-tighter mb-8 uppercase">
+                <span class="brand-b">B</span><span class="brand-hatha">H</span><span class="brand-rupee">₹</span><span class="brand-hatha">ATHA</span><span class="brand-dot">.</span>
+            </h1>
+            <div class="space-y-2">
+                <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Brotherhood-Led Global Lifestyle.</p>
+                <p class="dynamic-text text-xs md:text-sm tracking-[0.6em] uppercase font-light">Restraint is Power.</p>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-0 w-full max-w-6xl border-t border-b border-white/10">
+            
+            <div class="glass-card p-12 space-y-6">
+                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Foundation</h2>
+                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                    <p>IPNOTEC architecture.</p>
+                    <p>Bhratha soul.</p>
+                    <p>Independent by design.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-12 space-y-6 md:border-l md:border-r border-white/10">
+                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Operations</h2>
+                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                    <p>Brew / Café / Green Retail.</p>
+                    <p>Global cities.</p>
+                    <p>Select partners.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-12 space-y-6">
+                <h2 class="text-[10px] tracking-[0.4em] text-gray-500 uppercase">Status</h2>
+                <div class="dynamic-text text-sm md:text-base space-y-1 leading-relaxed">
+                    <p>Private Access Only.</p>
+                    <p>Proof of Character required.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="py-32 flex flex-col items-center space-y-12">
+            <div class="flex space-x-20">
+                <div class="symbol-btc text-4xl"></div>
+                <div class="symbol-bhr text-4xl"></div>
+            </div>
+            
+            <button onclick="openModal()" class="group relative px-12 py-4 border border-white/10 overflow-hidden">
+                <span class="relative z-10 text-[10px] tracking-[0.5em] uppercase group-hover:text-black transition-colors duration-300">Request Access</span>
+                <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+            </button>
+        </section>
+
+    </main>
+
+    <footer class="p-12 text-center">
+        <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">
+            © <span class="brand-b">B</span>H<span class="brand-rupee">₹</span>ATHA. Rooted in warmth. Built in Silence.
+        </p>
+    </footer>
+
+    <script>
+        const palette = ['#ff6900', '#39FF14', '#0070FF', '#ffffff'];
+
+        function glowEffect() {
+            const elements = document.querySelectorAll('.dynamic-text');
+            elements.forEach(el => {
+                const color = palette[Math.floor(Math.random() * palette.length)];
+                el.style.color = color;
+            });
+        }
+
+        // Modal Logic
+        function openModal() {
+            document.getElementById('accessModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('accessModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Form Logic
+        document.getElementById('applicationForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let message = "BH₹ATHA APPLICATION\n\n";
+            
+            message += "-- PHILOSOPHY --\n";
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('P'+i)}\n`;
+            
+            message += "\n-- FINANCIAL --\n";
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('F'+i)}\n`;
+            
+            message += "\n-- BROTHERHOOD --\n";
+            for(let i=1; i<=7; i++) message += `${i}. ${formData.get('B'+i)}\n`;
+
+            message += "\nI accept the ₹1,08,000 fee and 1.08% revenue share.";
+
+            // Replace YOUR_PHONE_NUMBER with your actual WhatsApp number including country code (e.g., 919876543210)
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        };
+    </script>
+</body>
+</html>
