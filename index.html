@@ -143,6 +143,16 @@
                 <button type="submit" class="w-full py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase">
                     Submit to Brotherhood
                 </button>
+
+                <!-- Added Calculator and Home Buttons -->
+                <div class="flex space-x-4 mt-6">
+                    <button type="button" onclick="window.open('https://bhratha-calc.vercel.app', '_blank')" class="w-1/2 py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase flex items-center justify-center">
+                        <span>CALCULATOR</span>
+                    </button>
+                    <button type="button" onclick="closeModal()" class="w-1/2 py-6 border border-white/20 hover:bg-white hover:text-black transition-all duration-500 text-[10px] tracking-[0.8em] uppercase flex items-center justify-center">
+                        <span>HOME</span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
