@@ -140,7 +140,7 @@
             max-width: 600px;
         }
 
-        /* Calculator Styles */
+        /* Calculator Styles - UPDATED */
         .calculator-frame {
             background: rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -472,9 +472,82 @@
         .stealth-text.scrolled-most {
             color: #666666 !important;
         }
+        
+        /* Scrolling Ribbon */
+        .scrolling-ribbon {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--b-orange), var(--neon-green), var(--electric-blue));
+            color: var(--black);
+            padding: 12px 0;
+            z-index: 9999;
+            overflow: hidden;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .scrolling-ribbon-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scrollRibbon 30s linear infinite;
+            width: max-content;
+        }
+        
+        .scrolling-ribbon:hover .scrolling-ribbon-content {
+            animation-play-state: paused;
+        }
+        
+        .scrolling-ribbon a {
+            color: var(--black);
+            text-decoration: none;
+            padding: 0 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .scrolling-ribbon a:hover {
+            color: var(--white);
+            text-shadow: 0 0 10px var(--white);
+        }
+        
+        @keyframes scrollRibbon {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Scrolling ribbon separator */
+        .ribbon-separator {
+            display: inline-block;
+            margin: 0 40px;
+            color: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Scrolling Ribbon -->
+    <div class="scrolling-ribbon">
+        <div class="scrolling-ribbon-content">
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+            <span class="ribbon-separator">✦</span>
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+            <span class="ribbon-separator">✦</span>
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+            <span class="ribbon-separator">✦</span>
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+            <span class="ribbon-separator">✦</span>
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+            <span class="ribbon-separator">✦</span>
+            <a href="https://bhrathabrews-g.vercel.app" target="_blank">Let Build BHRATHABREWS</a>
+        </div>
+    </div>
 
     <!-- Scroll Indicator -->
     <div class="scroll-indicator">
@@ -553,16 +626,16 @@
     <!-- Section Divider -->
     <div class="section-divider"></div>
 
-    <!-- Calculator Section -->
+    <!-- Calculator Section - UPDATED -->
     <section id="calculator" class="section">
         <div class="max-w-6xl mx-auto w-full">
             <!-- Calculator Header -->
             <div class="text-center mb-12">
                 <h1 class="text-3xl md:text-4xl font-bold mb-4">
-                    Brotherhood <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-electric-blue">Ownership Calculator</span>
+                    Brotherhood <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-electric-blue">Investment Portal</span>
                 </h1>
                 <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
-                    A mathematically clean, power-neutral, and transparent equity distribution system for the brotherhood.
+                    A transparent partnership model with 100% equity distribution based on investment contribution.
                 </p>
             </div>
             
@@ -570,9 +643,9 @@
             <div class="calculator-frame">
                 <div class="calculator-header">
                     <h2 class="text-xl md:text-2xl font-bold tracking-wider">
-                        BH<span class="text-neon-green">₹</span>ATHA<span class="text-electric-blue">.</span> <span class="text-gray-400">Ownership Model</span>
+                        BH<span class="text-neon-green">₹</span>ATHA<span class="text-electric-blue">.</span> <span class="text-gray-400">Member Fee Structure</span>
                     </h2>
-                    <p class="text-gray-500 text-sm mt-2">Founder: 10.800% fixed • Remaining 89.200% distributed by investment</p>
+                    <p class="text-gray-500 text-sm mt-2">One-time joining fee: 1.08 Crore • Platform fee: 1.08% on yearly payouts</p>
                 </div>
                 
                 <div class="p-4 md:p-6">
@@ -581,26 +654,36 @@
                         <div>
                             <h3 class="text-lg font-bold mb-4 flex items-center">
                                 <i class="fas fa-users mr-3 text-electric-blue"></i>
-                                Add BROs & Investments
+                                Member Investments
                             </h3>
                             
-                            <!-- Founder Info -->
+                            <!-- Member Fee Structure -->
                             <div class="mb-6 p-4 bg-black/30 rounded-lg">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black text-lg font-bold mr-4">F</div>
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black text-lg font-bold mr-4">₹</div>
                                     <div>
-                                        <div class="font-bold">Bharath (Founder)</div>
-                                        <div class="text-gray-400 text-sm">Fixed <span class="text-b-orange font-bold">10.800%</span> stake • Non-negotiable</div>
+                                        <div class="font-bold">Membership Fee Structure</div>
+                                        <div class="text-gray-400 text-sm">Fixed for all members</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">One-time Joining Fee:</span>
+                                        <span class="text-neon-green font-bold text-lg">₹1.08 Crore</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-400">Platform Fee (Yearly):</span>
+                                        <span class="text-electric-blue font-bold text-lg">1.08%</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <!-- BRO Inputs Container -->
+                            <!-- Member Inputs Container -->
                             <div id="broInputsContainer" class="mb-6 space-y-4 max-h-[400px] overflow-y-auto p-2">
-                                <!-- BRO inputs will be dynamically added here -->
+                                <!-- Member inputs will be dynamically added here -->
                                 <div class="bro-input-item fade-in">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">BRO 1</div>
+                                        <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">M1</div>
                                         <div class="flex-grow">
                                             <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
                                             <input 
@@ -620,7 +703,7 @@
                                 
                                 <div class="bro-input-item fade-in">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">BRO 2</div>
+                                        <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">M2</div>
                                         <div class="flex-grow">
                                             <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
                                             <input 
@@ -640,7 +723,7 @@
                                 
                                 <div class="bro-input-item fade-in">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">BRO 3</div>
+                                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">M3</div>
                                         <div class="flex-grow">
                                             <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
                                             <input 
@@ -666,7 +749,7 @@
                                     class="px-4 py-3 btn-primary font-semibold rounded-lg flex items-center justify-center"
                                 >
                                     <i class="fas fa-user-plus mr-2"></i>
-                                    Add BRO
+                                    Add Member
                                 </button>
                                 
                                 <button 
@@ -697,14 +780,14 @@
                                 </button>
                             </div>
                             
-                            <!-- Formula Display -->
+                            <!-- Fee Structure Display -->
                             <div class="mt-8 p-4 bg-black rounded-lg border border-gray-800">
-                                <div class="text-sm text-gray-400 mb-2">The Brotherhood Formula</div>
+                                <div class="text-sm text-gray-400 mb-2">The Brotherhood Fee Structure</div>
                                 <div class="text-sm space-y-1">
-                                    <div>Founder Stake = <span class="text-b-orange">10.800%</span> (fixed)</div>
-                                    <div>Remaining Pool = <span class="text-neon-green">89.200%</span></div>
-                                    <div class="p-2 bg-black/50 rounded mt-2">BRO % = (Investment / Total Investment) × <span class="text-neon-green">89.200%</span></div>
-                                    <div class="text-xs text-gray-500 mt-2">Percentages calculated to 3 decimal places (e.g., 44.600%)</div>
+                                    <div>One-time Joining Fee = <span class="text-neon-green">₹1.08 Crore</span> per member</div>
+                                    <div>Platform Fee = <span class="text-electric-blue">1.08%</span> on yearly payouts</div>
+                                    <div class="p-2 bg-black/50 rounded mt-2">Member % = (Investment / Total Investment) × <span class="text-neon-green">100%</span></div>
+                                    <div class="text-xs text-gray-500 mt-2">Equity distributed 100% based on investment contribution</div>
                                 </div>
                             </div>
                         </div>
@@ -713,7 +796,7 @@
                         <div>
                             <h3 class="text-lg font-bold mb-4 flex items-center">
                                 <i class="fas fa-chart-pie mr-3 text-neon-green"></i>
-                                Ownership Distribution
+                                Equity Distribution
                             </h3>
                             
                             <!-- Summary Stats -->
@@ -723,8 +806,8 @@
                                     <div id="totalInvestment" class="text-2xl font-bold text-neon-green">₹1,00,00,000</div>
                                 </div>
                                 <div class="bg-black p-4 rounded-lg">
-                                    <div class="text-sm text-gray-400">Active BROs</div>
-                                    <div id="totalBros" class="text-2xl font-bold text-electric-blue">3 BROs</div>
+                                    <div class="text-sm text-gray-400">Active Members</div>
+                                    <div id="totalBros" class="text-2xl font-bold text-electric-blue">3 Members</div>
                                 </div>
                             </div>
                             
@@ -733,16 +816,16 @@
                                 <div class="text-lg font-medium mb-3">Quick Stats</div>
                                 <div class="grid grid-cols-3 gap-3 text-center">
                                     <div class="p-3 bg-black/30 rounded-lg">
-                                        <div class="text-2xl font-bold text-b-orange">10.800%</div>
-                                        <div class="text-xs text-gray-400">Founder</div>
+                                        <div class="text-2xl font-bold text-b-orange">1.08C</div>
+                                        <div class="text-xs text-gray-400">Joining Fee</div>
                                     </div>
                                     <div class="p-3 bg-black/30 rounded-lg">
-                                        <div class="text-2xl font-bold text-neon-green" id="highestPercentage">44.600%</div>
-                                        <div class="text-xs text-gray-400">Highest BRO</div>
+                                        <div class="text-2xl font-bold text-neon-green" id="highestPercentage">50.000%</div>
+                                        <div class="text-xs text-gray-400">Highest Member</div>
                                     </div>
                                     <div class="p-3 bg-black/30 rounded-lg">
-                                        <div class="text-2xl font-bold text-electric-blue" id="remainingPoolDisplay">89.200%</div>
-                                        <div class="text-xs text-gray-400">Remaining Pool</div>
+                                        <div class="text-2xl font-bold text-electric-blue">1.08%</div>
+                                        <div class="text-xs text-gray-400">Platform Fee</div>
                                     </div>
                                 </div>
                             </div>
@@ -755,81 +838,81 @@
                                 </div>
                                 
                                 <div id="ownershipChart" class="space-y-4 max-h-[300px] overflow-y-auto p-2">
-                                    <!-- Founder Row -->
+                                    <!-- Fee Structure Row -->
                                     <div class="owner-row founder">
                                         <div class="flex justify-between items-center mb-1">
                                             <div class="flex items-center">
-                                                <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black font-bold mr-3">F</div>
+                                                <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black text-lg font-bold mr-3">₹</div>
                                                 <div>
-                                                    <div class="font-bold">Bharath</div>
-                                                    <div class="text-xs text-gray-400">Founder • Fixed Stake</div>
+                                                    <div class="font-bold">Fee Structure</div>
+                                                    <div class="text-xs text-gray-400">Fixed for all members</div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-xl font-bold text-b-orange">10.800%</div>
-                                                <div class="text-xs text-gray-400">Non-negotiable</div>
+                                                <div class="text-xl font-bold text-b-orange">1.08%</div>
+                                                <div class="text-xs text-gray-400">Platform Fee</div>
                                             </div>
                                         </div>
                                         <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 10.8%"></div>
+                                            <div class="progress-fill" style="width: 1.08%"></div>
                                         </div>
                                     </div>
                                     
-                                    <!-- BRO rows will be dynamically added here -->
+                                    <!-- Member rows will be dynamically added here -->
                                     <div class="owner-row investor">
                                         <div class="flex justify-between items-center mb-1">
                                             <div class="flex items-center">
-                                                <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">BRO 1</div>
+                                                <div class="w-10 h-10 rounded-full bg-neon-green flex items-center justify-center text-black font-bold mr-3">M1</div>
                                                 <div>
-                                                    <div class="font-bold">BRO 1</div>
+                                                    <div class="font-bold">Member 1</div>
                                                     <div class="text-xs text-gray-400">₹50,00,000 • Highest Investor</div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-xl font-bold text-neon-green">44.600%</div>
-                                                <div class="text-xs text-gray-400">₹44.60 per ₹100 profit</div>
+                                                <div class="text-xl font-bold text-neon-green">50.000%</div>
+                                                <div class="text-xs text-gray-400">₹50.00 per ₹100 profit</div>
                                             </div>
                                         </div>
                                         <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 44.6%"></div>
+                                            <div class="progress-fill" style="width: 50%"></div>
                                         </div>
                                     </div>
                                     
                                     <div class="owner-row investor">
                                         <div class="flex justify-between items-center mb-1">
                                             <div class="flex items-center">
-                                                <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">BRO 2</div>
+                                                <div class="w-10 h-10 rounded-full bg-electric-blue flex items-center justify-center text-black font-bold mr-3">M2</div>
                                                 <div>
-                                                    <div class="font-bold">BRO 2</div>
+                                                    <div class="font-bold">Member 2</div>
                                                     <div class="text-xs text-gray-400">₹30,00,000</div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-xl font-bold text-electric-blue">26.760%</div>
-                                                <div class="text-xs text-gray-400">₹26.76 per ₹100 profit</div>
+                                                <div class="text-xl font-bold text-electric-blue">30.000%</div>
+                                                <div class="text-xs text-gray-400">₹30.00 per ₹100 profit</div>
                                             </div>
                                         </div>
                                         <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 26.76%"></div>
+                                            <div class="progress-fill" style="width: 30%"></div>
                                         </div>
                                     </div>
                                     
                                     <div class="owner-row investor">
                                         <div class="flex justify-between items-center mb-1">
                                             <div class="flex items-center">
-                                                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">BRO 3</div>
+                                                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold mr-3">M3</div>
                                                 <div>
-                                                    <div class="font-bold">BRO 3</div>
+                                                    <div class="font-bold">Member 3</div>
                                                     <div class="text-xs text-gray-400">₹20,00,000</div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <div class="text-xl font-bold text-purple-400">17.840%</div>
-                                                <div class="text-xs text-gray-400">₹17.84 per ₹100 profit</div>
+                                                <div class="text-xl font-bold text-purple-400">20.000%</div>
+                                                <div class="text-xs text-gray-400">₹20.00 per ₹100 profit</div>
                                             </div>
                                         </div>
                                         <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 17.84%"></div>
+                                            <div class="progress-fill" style="width: 20%"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -844,11 +927,12 @@
                                 <div class="text-sm text-gray-400">
                                     <p class="mb-2">If BHRATHA makes <span class="text-neon-green">₹1,00,00,000</span> profit:</p>
                                     <div class="grid grid-cols-2 gap-2 text-xs">
-                                        <div>Bharath gets: <span class="text-b-orange">₹10,80,000</span></div>
-                                        <div>BRO 1 gets: <span class="text-neon-green">₹44,60,000</span></div>
-                                        <div>BRO 2 gets: <span class="text-electric-blue">₹26,76,000</span></div>
-                                        <div>BRO 3 gets: <span class="text-purple-400">₹17,84,000</span></div>
+                                        <div>Platform Fee (1.08%): <span class="text-b-orange">₹1,08,000</span></div>
+                                        <div>Member 1 gets: <span class="text-neon-green">₹49,46,000</span></div>
+                                        <div>Member 2 gets: <span class="text-electric-blue">₹29,67,600</span></div>
+                                        <div>Member 3 gets: <span class="text-purple-400">₹19,78,400</span></div>
                                     </div>
+                                    <div class="text-xs text-gray-500 mt-2">After 1.08% platform fee deduction</div>
                                 </div>
                             </div>
                         </div>
@@ -861,20 +945,20 @@
                 <h3 class="text-xl font-bold mb-4">The Brotherhood Promise</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-medium mb-2 text-neon-green">Capital-Respecting</h4>
-                        <p class="text-gray-400 text-sm">Whoever invests more → automatically gets more ownership. No subjective negotiation.</p>
+                        <h4 class="font-medium mb-2 text-neon-green">Transparent Fees</h4>
+                        <p class="text-gray-400 text-sm">One-time joining fee of 1.08 Crore. Platform fee of 1.08% on yearly payouts only.</p>
                     </div>
                     <div>
-                        <h4 class="font-medium mb-2 text-electric-blue">Ego-Neutral</h4>
-                        <p class="text-gray-400 text-sm">Founder protected at 10.8%. Remaining 89.2% distributed purely in proportion to investment.</p>
+                        <h4 class="font-medium mb-2 text-electric-blue">Equal Opportunity</h4>
+                        <p class="text-gray-400 text-sm">100% equity distributed based purely on investment. No founder stake.</p>
                     </div>
                     <div>
                         <h4 class="font-medium mb-2 text-b-orange">Mathematically Fair</h4>
-                        <p class="text-gray-400 text-sm">Transparent formula, calculated to three decimal places. No hidden adjustments.</p>
+                        <p class="text-gray-400 text-sm">Transparent distribution formula. No hidden adjustments or preferences.</p>
                     </div>
                     <div>
-                        <h4 class="font-medium mb-2 text-purple-400">Vision-Protected</h4>
-                        <p class="text-gray-400 text-sm">Founder retains veto power on key decisions. Brand/IP stays outside company structure.</p>
+                        <h4 class="font-medium mb-2 text-purple-400">Sustainable Growth</h4>
+                        <p class="text-gray-400 text-sm">Platform fee ensures continuous development and support for all members.</p>
                     </div>
                 </div>
             </div>
@@ -967,7 +1051,7 @@
         </p>
     </footer>
 
-    <!-- Access Modal -->
+    <!-- Access Modal - UPDATED FEES -->
     <div id="accessModal" class="p-6 md:p-24 hidden">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-16">
@@ -1063,7 +1147,7 @@
                             <input type="text" name="F6" class="form-input" required>
                         </div>
                         <div class="question-item">
-                            <div class="question-text">7. Do you accept the 1.08% Brotherhood Revenue Fee as a non-negotiable?</div>
+                            <div class="question-text">7. Do you accept the 1.08% Brotherhood Platform Fee on yearly payouts?</div>
                             <input type="text" name="F7" class="form-input" required>
                         </div>
                     </div>
@@ -1104,7 +1188,7 @@
                     </div>
                 </div>
 
-                <!-- Membership Privileges -->
+                <!-- Membership Privileges - UPDATED FEES -->
                 <div class="mb-20 glass-card p-8 border-l-2 border-orange-500">
                     <h3 class="text-sm tracking-widest mb-4 brand-b">MEMBERSHIP PRIVILEGES</h3>
                     <ul class="text-xs space-y-3 opacity-80 mb-8 list-disc pl-4">
@@ -1113,8 +1197,8 @@
                         <li>Operational immunity through shared restraint and character-vetted alliances.</li>
                     </ul>
                     <div class="text-[10px] tracking-widest space-y-2 opacity-60">
-                        <p>JOINING FEE: ₹108,000 (NON-REFUNDABLE)</p>
-                        <p>REVENUE SHARE: 1.08% FOR BHRATHA OPERATIONS</p>
+                        <p>ONE-TIME JOINING FEE: ₹1,08,00,000 (1.08 Crore, NON-REFUNDABLE)</p>
+                        <p>PLATFORM FEE: 1.08% ON YEARLY PAYOUTS FOR BHRATHA OPERATIONS</p>
                     </div>
                 </div>
 
@@ -1271,7 +1355,7 @@
             message += "\n-- BROTHERHOOD & BUSINESS --\n";
             for(let i=1; i<=7; i++) message += `${i}. ${formData.get('B'+i)}\n`;
 
-            message += "\nI accept the ₹108,000 fee and 1.08% revenue share.";
+            message += "\nI accept the ₹1,08,00,000 joining fee and 1.08% platform fee on yearly payouts.";
 
             // FIXED: Correct WhatsApp URL format
             const whatsappUrl = `https://wa.me/916292306090?text=${encodeURIComponent(message)}`;
@@ -1284,7 +1368,7 @@
             setTimeout(openSuccessModal, 300);
         };
 
-        // Calculator Logic
+        // Calculator Logic - UPDATED FOR NEW FEE STRUCTURE
         const broInputsContainer = document.getElementById('broInputsContainer');
         const addBroBtn = document.getElementById('addBroBtn');
         const calculateBtn = document.getElementById('calculateBtn');
@@ -1294,24 +1378,23 @@
         const totalInvestmentEl = document.getElementById('totalInvestment');
         const totalBrosEl = document.getElementById('totalBros');
         const highestPercentageEl = document.getElementById('highestPercentage');
-        const remainingPoolDisplayEl = document.getElementById('remainingPoolDisplay');
         const calculationTimeEl = document.getElementById('calculationTime');
         
-        // Colors for BROs
+        // Colors for Members
         const broColors = [
             'bg-neon-green', 'bg-electric-blue', 'bg-purple-500', 'bg-pink-500', 
             'bg-yellow-500', 'bg-indigo-500', 'bg-teal-500', 'bg-red-500',
             'bg-amber-500', 'bg-cyan-500', 'bg-lime-500', 'bg-emerald-500'
         ];
         
-        // Store BRO data
+        // Store Member data
         let bros = [
             { id: 1, investment: 5000000, color: broColors[0] },
             { id: 2, investment: 3000000, color: broColors[1] },
             { id: 3, investment: 2000000, color: broColors[2] }
         ];
         
-        // BRO counter
+        // Member counter
         let broCounter = 3;
         
         // Format currency in Indian format
@@ -1332,7 +1415,7 @@
             return value.toFixed(3) + '%';
         }
         
-        // Add a new BRO input field
+        // Add a new Member input field
         function addBroInput() {
             broCounter++;
             const newBroIndex = bros.length;
@@ -1342,7 +1425,7 @@
             broDiv.className = 'bro-input-item fade-in';
             broDiv.innerHTML = `
                 <div class="flex items-center">
-                    <div class="w-10 h-10 rounded-full ${colorClass} flex items-center justify-center text-black font-bold mr-3">BRO ${broCounter}</div>
+                    <div class="w-10 h-10 rounded-full ${colorClass} flex items-center justify-center text-black font-bold mr-3">M${broCounter}</div>
                     <div class="flex-grow">
                         <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
                         <input 
@@ -1390,7 +1473,7 @@
             calculateOwnership();
         }
         
-        // Remove a BRO
+        // Remove a Member
         function removeBro(broId, element) {
             // Remove from DOM
             if (element && element.parentNode) {
@@ -1409,7 +1492,7 @@
             calculateOwnership();
         }
         
-        // Update BRO investment amount
+        // Update Member investment amount
         function updateBroInvestment(broId, investment) {
             const bro = bros.find(b => b.id === broId);
             if (bro) {
@@ -1417,7 +1500,7 @@
             }
         }
         
-        // Calculate ownership percentages
+        // Calculate ownership percentages - UPDATED FOR 100% DISTRIBUTION
         function calculateOwnership() {
             // Get all investment amounts
             const broInputs = document.querySelectorAll('.bro-amount');
@@ -1432,18 +1515,17 @@
             
             // Update summary stats
             totalInvestmentEl.textContent = formatCurrency(totalInvestment);
-            totalBrosEl.textContent = `${bros.length} BRO${bros.length !== 1 ? 's' : ''}`;
-            remainingPoolDisplayEl.textContent = formatPercentage(89.2);
+            totalBrosEl.textContent = `${bros.length} Member${bros.length !== 1 ? 's' : ''}`;
             
-            // Calculate percentages for each BRO
+            // Calculate percentages for each Member - 100% distribution
             bros.forEach(bro => {
                 bro.percentage = totalInvestment > 0 ? 
-                    (bro.investment / totalInvestment) * 89.2 : 0;
+                    (bro.investment / totalInvestment) * 100 : 0;
                 bro.formattedInvestment = formatCurrency(bro.investment);
                 bro.formattedPercentage = formatPercentage(bro.percentage);
             });
             
-            // Sort BROs by percentage (highest first)
+            // Sort Members by percentage (highest first)
             bros.sort((a, b) => b.percentage - a.percentage);
             
             // Update highest percentage
@@ -1461,46 +1543,40 @@
             displayResults(totalInvestment);
         }
         
-        // Display calculation results
+        // Display calculation results - UPDATED FOR NEW STRUCTURE
         function displayResults(totalInvestment) {
-            // Clear existing BRO rows (keep founder row)
-            const founderRow = ownershipChart.querySelector('.owner-row.founder');
+            // Clear existing Member rows
             ownershipChart.innerHTML = '';
             
-            // Add founder row back
-            if (founderRow) {
-                ownershipChart.appendChild(founderRow);
-            } else {
-                // Create founder row
-                const founderDiv = document.createElement('div');
-                founderDiv.className = 'owner-row founder';
-                founderDiv.innerHTML = `
-                    <div class="flex justify-between items-center mb-1">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black font-bold mr-3">F</div>
-                            <div>
-                                <div class="font-bold">Bharath</div>
-                                <div class="text-xs text-gray-400">Founder • Fixed Stake</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-xl font-bold text-b-orange">10.800%</div>
-                            <div class="text-xs text-gray-400">Non-negotiable</div>
+            // Add fee structure row
+            const feeDiv = document.createElement('div');
+            feeDiv.className = 'owner-row founder';
+            feeDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-b-orange flex items-center justify-center text-black text-lg font-bold mr-3">₹</div>
+                        <div>
+                            <div class="font-bold">Fee Structure</div>
+                            <div class="text-xs text-gray-400">Fixed for all members</div>
                         </div>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 10.8%"></div>
+                    <div class="text-right">
+                        <div class="text-xl font-bold text-b-orange">1.08%</div>
+                        <div class="text-xs text-gray-400">Platform Fee</div>
                     </div>
-                `;
-                ownershipChart.appendChild(founderDiv);
-            }
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 1.08%"></div>
+                </div>
+            `;
+            ownershipChart.appendChild(feeDiv);
             
-            // Add BRO rows
+            // Add Member rows
             bros.forEach((bro, index) => {
                 const broDiv = document.createElement('div');
                 broDiv.className = 'owner-row investor fade-in';
                 
-                // Determine if this is the highest BRO
+                // Determine if this is the highest Member
                 const highestBadge = index === 0 ? '• Highest Investor' : '';
                 
                 // Get color from class
@@ -1521,21 +1597,21 @@
                 
                 const broColor = colorMap[bro.color] || '#ffffff';
                 
-                // Calculate profit per 100
-                const profitPer100 = bro.percentage.toFixed(3);
+                // Calculate profit per 100 (after 1.08% platform fee)
+                const profitPer100 = (bro.percentage * 0.9892).toFixed(3);
                 
                 broDiv.innerHTML = `
                     <div class="flex justify-between items-center mb-1">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full ${bro.color} flex items-center justify-center text-black font-bold mr-3">BRO ${bro.id}</div>
+                            <div class="w-10 h-10 rounded-full ${bro.color} flex items-center justify-center text-black font-bold mr-3">M${bro.id}</div>
                             <div>
-                                <div class="font-bold">BRO ${bro.id}</div>
+                                <div class="font-bold">Member ${bro.id}</div>
                                 <div class="text-xs text-gray-400">${bro.formattedInvestment} ${highestBadge}</div>
                             </div>
                         </div>
                         <div class="text-right">
                             <div class="text-xl font-bold" style="color: ${broColor}">${bro.formattedPercentage}</div>
-                            <div class="text-xs text-gray-400">₹${profitPer100} per ₹100 profit</div>
+                            <div class="text-xs text-gray-400">₹${profitPer100} per ₹100 profit*</div>
                         </div>
                     </div>
                     <div class="progress-bar">
@@ -1562,13 +1638,13 @@
             // Recreate input fields
             broInputsContainer.innerHTML = '';
             
-            // Re-add initial BROs
+            // Re-add initial Members
             for (let i = 0; i < 3; i++) {
                 const broDiv = document.createElement('div');
                 broDiv.className = 'bro-input-item fade-in';
                 broDiv.innerHTML = `
                     <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full ${broColors[i]} flex items-center justify-center text-black font-bold mr-3">BRO ${i+1}</div>
+                        <div class="w-10 h-10 rounded-full ${broColors[i]} flex items-center justify-center text-black font-bold mr-3">M${i+1}</div>
                         <div class="flex-grow">
                             <div class="text-sm text-gray-400 mb-1">Investment Amount (₹)</div>
                             <input 
@@ -1621,7 +1697,7 @@
 
         // Initialize calculator
         function initCalculator() {
-            // Add event listeners to existing BRO inputs
+            // Add event listeners to existing Member inputs
             document.querySelectorAll('.bro-amount').forEach((input, index) => {
                 input.dataset.id = (index + 1).toString();
                 input.addEventListener('input', function() {
@@ -1645,7 +1721,7 @@
             if (calculateBtn) calculateBtn.addEventListener('click', calculateOwnership);
             if (resetBtn) resetBtn.addEventListener('click', resetAll);
             if (exitBtn) exitBtn.addEventListener('click', function() {
-                alert('Ownership calculation finalized. Scroll down to request invitation.');
+                alert('Investment calculation finalized. Scroll down to request invitation.');
                 window.scrollTo({
                     top: document.getElementById('final').offsetTop,
                     behavior: 'smooth'
